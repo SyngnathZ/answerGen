@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 from docx import Document
-import sqlite3
+
 
 
 class seqNode:
