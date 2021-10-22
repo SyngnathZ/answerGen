@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 from docx import Document
-
+import sqlite3
 
 
 class seqNode:
@@ -42,9 +42,28 @@ def initializeNode(doc, Index):
     return docxList
 
 
+def inputDB(docxlist):
+    conn = sqlite3.connect('information.db')
+    cur = conn.cursor()
+
+    for each in docxlist:
+        try:
+            sql_text = "insert into quesInfo(Question, Options, Answer) values (" + "'" + str(
+                each.question) + "'" + "," + "'" + str("###".join(each.option)) + "'" + "," + "'" + str(
+                "###".join(each.answer)) + "'" + ")"
+
+            cur.execute(sql_text)
+        except:
+            print('重复！跳过！')
+
+    conn.commit()
+    cur.close()
+    conn.close()
+
+
 def main():
     doc = Document('./docx/机汽学院安全教育题库.docx')
-    initializeNode(doc, getParaQue(doc))
+    inputDB(initializeNode(doc, getParaQue(doc)))
 
 
 if __name__ == '__main__':
