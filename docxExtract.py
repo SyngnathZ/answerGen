@@ -30,12 +30,14 @@ def getParaQue(doc):
 
 def initializeNode(doc, Index):
     docxList = []
-    for each in range(len(Index)):
+    for each in range(len(Index)):  # 通过对索引列表进行索引，实现前一题减后一题的功能，以求出题目的选项、答案和标题
         if each != len(Index) - 1:
             options = []
             for i in range(Index[each] + 1, Index[each + 1]):
                 options.append(doc.paragraphs[i].text)
-            docxNode = seqNode(doc.paragraphs[Index[each]].text.split('、')[1], options,
+
+            partialquestion = doc.paragraphs[Index[each]].text.split('、')[1:]  # 取出了第一个数字
+            docxNode = seqNode("、".join(partialquestion), options,
                                doc.paragraphs[Index[each]].text.split('【')[1].split('】')[0].split(','))
             docxList.append(docxNode)
 
@@ -46,7 +48,7 @@ def inputDB(docxlist):
     conn = sqlite3.connect('information.db')
     cur = conn.cursor()
 
-    for each in docxlist:
+    for each in docxlist:  # 将上述结构不重复的写入数据库以供查询
         try:
             sql_text = "insert into quesInfo(Question, Options, Answer) values (" + "'" + str(
                 each.question) + "'" + "," + "'" + str("###".join(each.option)) + "'" + "," + "'" + str(
