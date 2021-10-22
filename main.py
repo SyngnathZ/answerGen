@@ -9,12 +9,12 @@ def main():
     cur = conn.cursor()
 
     while True:
-        inputtext = input('请输入您需要查询的部分标题:\n若查询完毕，请输入td退出查询程序\n')
+        inputtext = input('请输入您需要查询的部分选项（标题不能复制）:\n若查询完毕，请输入td退出查询程序\n')
         if inputtext == 'td':
             break
         else:
             try:
-                sql_text = "select Question, Options, Answer From quesInfo WHERE Question like (" + "'%" + str(
+                sql_text = "select Question, Options, Answer From quesInfo WHERE Options like (" + "'%" + str(
                     inputtext) + "%'" + ")"
 
                 pointer = cur.execute(sql_text)
