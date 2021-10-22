@@ -23,7 +23,7 @@ def main():
                     answerlist = each[2].split('###')
                     print('题目是:\n')
                     print(each[0])  # 输出题目
-                    print('选项是:\n')
+                    print('选项是:')
                     print('\n'.join(optionlist))
                     print('答案是:\n')
                     print(','.join(answerlist))
