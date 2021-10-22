@@ -35,7 +35,7 @@ def initializeNode(doc, Index):
             options = []
             for i in range(Index[each] + 1, Index[each + 1]):
                 options.append(doc.paragraphs[i].text)
-            docxNode = seqNode(doc.paragraphs[Index[each]].text, options,
+            docxNode = seqNode(doc.paragraphs[Index[each]].text.split('、')[1], options,
                                doc.paragraphs[Index[each]].text.split('【')[1].split('】')[0].split(','))
             docxList.append(docxNode)
 
